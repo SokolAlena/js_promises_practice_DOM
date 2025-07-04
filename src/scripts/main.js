@@ -1,18 +1,24 @@
 'use strict';
 
 const firstPromise = new Promise((resolve, reject) => {
-  const onClick = (e) => {
-    const timer = setTimeout(() => {
-      reject(new Error(''));
-    }, 3000);
-
+  const onMouseDown = (e) => {
     if (e.button === 0) {
-      resolve();
-      clearTimeout(timer);
+      resolve('');
+      cleanup();
     }
   };
 
-  document.addEventListener('mousedown', onClick);
+  const timer = setTimeout(() => {
+    reject(new Error());
+    cleanup();
+  }, 3000);
+
+  function cleanup() {
+    document.removeEventListener('mousedown', onMouseDown);
+    clearTimeout(timer);
+  }
+
+  document.addEventListener('mousedown', onMouseDown);
 });
 
 const secondPromise = new Promise((resolve) => {
