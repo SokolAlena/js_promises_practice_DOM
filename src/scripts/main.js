@@ -2,13 +2,14 @@
 
 const firstPromise = new Promise((resolve, reject) => {
   const onClick = (e) => {
-    if (e.button === 0) {
-      resolve();
-    }
-
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       reject(new Error(''));
     }, 3000);
+
+    if (e.button === 0) {
+      resolve();
+      clearTimeout(timer);
+    }
   };
 
   document.addEventListener('mousedown', onClick);
