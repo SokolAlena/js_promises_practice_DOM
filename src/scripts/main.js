@@ -1,15 +1,17 @@
 'use strict';
 
 const firstPromise = new Promise((resolve, reject) => {
-  document.addEventListener('click', () => {
-    resolve();
-  });
+  const onClick = (e) => {
+    if (e.button === 0) {
+      resolve();
+    }
 
-  document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       reject(new Error(''));
     }, 3000);
-  });
+  };
+
+  document.addEventListener('mousedown', onClick);
 });
 
 const secondPromise = new Promise((resolve) => {
